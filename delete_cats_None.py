@@ -35,7 +35,7 @@ import csv
 ###-----------------------------------   INPUT FIELD NAME ETC --------------------------------------------------------------
 
 exp_time = 20 
-input_path = '/mnt/dwf/archive_NOAO_data/data_outputs/*/*/*/g_band/single/*/final_source_cats/'
+input_path = '/mnt/dwf/archive_NOAO_data/data_outputs/*/*/*/g_band/single/*/'
 
 
 ###-----------------------------------^^^^^^^^^^^ DID YOU INPUT FIELD NAMEs ?  --------------------------------------------------------------
@@ -46,14 +46,21 @@ path_list = glob.glob(input_path)
 for i in path_list: 
 	print(i)
 	for filename in os.listdir(i):
+		#os.chdir(i)
+		#os.chdir("..")
+		#filename_directory = os.path.abspath(os.curdir)
+		try: 
+			os.system('rm -r None')
+		except:
+			pass
+		'''
 		#av_correction = np.zeros(len(os.listdir(i)))
 		#print(av_correction)
 		filenames_for_av = []
 		filenames_for_av.append(filename)
-		if filename.endswith('.ascii'):
-			os.system('rm ' + str(i) + str(filename))
-			print('removing ' + str(filename)) 
-				
+		os.system('rm ' + str(i) + str(filename))
+		print('removing ' + str(filename)) 
+			'''	
 			
 		 
 			

@@ -41,16 +41,21 @@ input_cats = '/mnt/dwf/sky_mapperDR2/shortlisted_stars_for_photom/Dusty11_SkyM.c
 ###-----------------------------------^^^^^^^^^^^ DID YOU INPUT FIELD NAMEs ?  --------------------------------------------------------------
 
 
+
 path_list = glob.glob(input_path)
 
 for i in path_list: 
+	print(i)
 	av_correction = []
+	odd_differences = []
+	filenames_good = [] 
+	filenames_odd = [] 
 	for filename in os.listdir(i):
 		#av_correction = np.zeros(len(os.listdir(i)))
 		#print(av_correction)
-		print( filename)
-		filenames_for_av = []
-		filenames_for_av.append(filename)
+		#print( filename)
+		#filenames_for_av = []
+		#filenames_for_av.append(filename)
 		if filename.endswith('.cat'):
 			MAG_APER, MAGERR_APER, MAG_AUTO, MAGERR_AUTO, XPEAK_IMAGE, YPEAK_IMAGE, X_IMAGE, Y_IMAGE, ALPHA_J2000, DELTA_J2000 = np.loadtxt(i + filename, unpack = True)
 			zp_exp_correction = 2.5*np.log10(exp_time)
@@ -80,8 +85,12 @@ for i in path_list:
 			os.chdir("..")
 			filename_directory = os.path.abspath(os.curdir)
 			photom_correction_path = filename_directory + '/photom_correction_files/'
+			#print(photom_correction_path)
 			final_source_cat_path = filename_directory + '/final_source_cats/'
-			photom_correction_path_images = photom_correction_path + '/skymapper_checkphotom_plots/'
+			#print(final_source_cat_path)
+			photom_correction_path_images = photom_correction_path + 'skymapper_checkphotom_plots/'
+			#print(photom_correction_path_images)
+			
 			if not os.path.exists(photom_correction_path):
 		               	os.makedirs(photom_correction_path, 0o755)
 			else:
@@ -153,14 +162,19 @@ for i in path_list:
 				for row, row1 in zip(source_match_table['DWF_gmag'], source_match_table['SM_g_mag']):
 					if row1 < 24:
 						diff = row - row1
-						diff_mags.append(diff)
-						#print(diff)
-					elif row1 > 23:
+						if diff < 1.5: 
+							diff_mags.append(diff)
+							filenames_good.append(filename)
+							#print(diff)
+						elif diff > 1.5: 
+							odd_differences.append(diff)
+							filenames_odd.append(filename)
+					elif row1 > 24:
 						pass
 				if len(diff_mags) > 0: 
 					mean_diff = np.mean(diff_mags)
 					median_diff= np.median(diff_mags)
-					print('got to step 3: found mean: ' + str(mean_diff))
+					#print('got to step 3: found mean: ' + str(mean_diff))
 					source_match_table['DWF_g_mag_ZPoffset'] = source_match_table['DWF_gmag'] - mean_diff
 					a = [10, 23]
 					b = [10, 23]
@@ -197,9 +211,11 @@ for i in path_list:
 					new_cat['g_mag_err_APER'] = ccd_SE_cat['magerr_aper']
 					#print(new_cat)
 					av_correction.append(mean_diff)
+					#print('HELOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO')
+					#print('average correction ' + str(av_correction))
 					t = new_cat
 					output= final_source_cat_path + '/'+ filename + '_CORRECTED.ascii'
-					print(output)
+					#print(output)
 					t.write(output, format= 'ascii' , overwrite = True)
 				else: 
 					print('No gband from SkyMapper for this ccd')
@@ -257,15 +273,33 @@ for i in path_list:
 		               	
 		        
 		
-				
+	try: 		
 		av_tab = Table()
 		av_tab['average correction'] = av_correction
+		
+		#av_tab['filenames'] = filenames_good
+		print('HELLOOOOOOOOOOOOOOOOOOOOOOOOOOOO')
+		print(av_tab)
 		#av_tab['filename'] = filenames_for_av
-		#print(av_tab)
-		
-		
+			
 		output2 = photom_correction_path + '/average_correction_per_ccd.ascii'
 		av_tab.write(output2, format ='ascii', overwrite = True) 
+		#print(av_tab)
+	except: 
+		pass 
+		
+	try: 	
+		odd_tab = Table()
+		odd_tab['odd differences'] = odd_differences
+		odd_tab['filenames'] = filenames_odd
+		output3 = photom_correction_path + '/odd_values_found_per_ccd.ascii'
+		odd_tab.write(output3, format ='ascii', overwrite = True)
+	except: 
+		pass 		
+		
+				
+	filenames_good.clear()		
+	av_correction.clear()			
 			
-			 
+			
 			

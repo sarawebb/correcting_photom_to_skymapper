@@ -35,7 +35,7 @@ import csv
 ###-----------------------------------   INPUT FIELD NAME ETC --------------------------------------------------------------
 
 exp_time = 20 
-input_path = '/mnt/dwf/archive_NOAO_data/data_outputs/*/*/*/g_band/single/*/final_source_cats/'
+input_path = '/mnt/dwf/archive_NOAO_data/data_outputs/*/*/*/g_band/single/*/photom_correction_files/skymapper_checkphotom_plots/'
 
 
 ###-----------------------------------^^^^^^^^^^^ DID YOU INPUT FIELD NAMEs ?  --------------------------------------------------------------
@@ -50,7 +50,7 @@ for i in path_list:
 		#print(av_correction)
 		filenames_for_av = []
 		filenames_for_av.append(filename)
-		if filename.endswith('.ascii'):
+		if filename.endswith('.png'):
 			os.system('rm ' + str(i) + str(filename))
 			print('removing ' + str(filename)) 
 				

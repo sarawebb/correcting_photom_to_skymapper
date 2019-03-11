@@ -32,28 +32,23 @@ import glob
 import csv
 
 
-###-----------------------------------   INPUT FIELD NAME ETC --------------------------------------------------------------
+###-----------------------------------   INPUT FIELD NAME ETC --------------------------------------------------------------###
 
-exp_time = 20 
-input_path = '/mnt/dwf/archive_NOAO_data/data_outputs/*/*/*/g_band/single/*/final_source_cats/'
-
-
-###-----------------------------------^^^^^^^^^^^ DID YOU INPUT FIELD NAMEs ?  --------------------------------------------------------------
+input_path = '/mnt/dwf/archive_NOAO_data/data_outputs/2015/01/Prime/g_band/single/*/photom_correction_files/'
 
 path_list = glob.glob(input_path)
-#print(path_list)
 
 for i in path_list: 
-	print(i)
+	averages = []
 	for filename in os.listdir(i):
-		#av_correction = np.zeros(len(os.listdir(i)))
-		#print(av_correction)
-		filenames_for_av = []
-		filenames_for_av.append(filename)
-		if filename.endswith('.ascii'):
-			os.system('rm ' + str(i) + str(filename))
-			print('removing ' + str(filename)) 
-				
-			
-		 
-			
+		if filename.startswith('average'):
+			try: 
+				avs = np.loadtxt(i + filename, unpack = True, skiprows= 1)
+				#print(avs)
+				for f in avs: 
+					averages.append(f)
+			except:
+				pass 
+	#print(averages)
+	print(i)
+	print(np.mean(averages))
