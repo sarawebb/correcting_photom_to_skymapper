@@ -34,8 +34,8 @@ import csv
 
 ###-----------------------------------   INPUT FIELD NAME ETC --------------------------------------------------------------
 
-exp_time = 20 
-input_path = '/mnt/dwf/archive_NOAO_data/data_outputs/2015/01/4hr/g_band/single/*/SE_cats/'
+exp_time = 1400
+input_path = '/mnt/dwf/archive_NOAO_data/data_outputs/2015/12/4hr/g_band/stacked/*/SE_cats/'
 input_cats = '/mnt/dwf/sky_mapperDR2/shortlisted_stars_for_photom/4hr_SM.csv_SHORTLISTED.ascii'
 
 ###-----------------------------------^^^^^^^^^^^ DID YOU INPUT FIELD NAMEs ?  --------------------------------------------------------------
@@ -57,6 +57,7 @@ for i in path_list:
 		#filenames_for_av = []
 		#filenames_for_av.append(filename)
 		if filename.endswith('.cat'):
+			print('HERE')
 			MAG_APER, MAGERR_APER, MAG_AUTO, MAGERR_AUTO, XPEAK_IMAGE, YPEAK_IMAGE, X_IMAGE, Y_IMAGE, ALPHA_J2000, DELTA_J2000 = np.loadtxt(i + filename, unpack = True)
 			zp_exp_correction = 2.5*np.log10(exp_time)
 			ccd_SE_cat = Table()
@@ -83,6 +84,7 @@ for i in path_list:
 			SM_X[:, 5] = z_psf
 			os.chdir(i)
 			os.chdir("..")
+			
 			filename_directory = os.path.abspath(os.curdir)
 			photom_correction_path = filename_directory + '/photom_correction_files/'
 			#print(photom_correction_path)
@@ -104,10 +106,12 @@ for i in path_list:
 			else:
 				pass 
 			
-			max_radius = 1./3600 #1 arc second 
+			max_radius = 1/3600 #1 arc second 
 			dist_between, ind_row = crossmatch_angular(DWF_X, SM_X, max_radius)
 			match = ~np.isinf(dist_between)
+			print(DWF_X, len(SM_X))
 			if len(match) != 0: 
+				print(match)
 				match_table = Table()
 				match_table['matched_true_false'] = match
 				match_table['matched_ID'] = ind_row
@@ -127,13 +131,16 @@ for i in path_list:
 						DWF_g_mags_matched.append(row['matched_DWF_data_gmag'])
 						DWF_obs_ra_matched.append(row['matched_DWF_RA'])
 						DWF_obs_dec_matched.append(row['matched_DWF_DEC'])
+				print(SM_row_matched)
 				SM_RA = []
 				SM_DEC = []
 				SM_g_mag = []
 				SM_r_mag = []
 				SM_i_mag = []
 				SM_z_mag = []
+
 				for j in SM_row_matched:
+					print('HERE HERE')
 					RA = SM_X[j, 0]
 					DEC = SM_X[j, 1]
 					g_mag = SM_X[j, 2]

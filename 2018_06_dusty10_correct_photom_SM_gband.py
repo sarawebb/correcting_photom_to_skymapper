@@ -35,8 +35,8 @@ import csv
 ###-----------------------------------   INPUT FIELD NAME ETC --------------------------------------------------------------
 
 exp_time = 20 
-input_path = '/mnt/dwf/archive_NOAO_data/data_outputs/2018/06/Dusty10/g_band/single/*/SE_cats/'
-input_cats = '/mnt/dwf/sky_mapperDR2/shortlisted_stars_for_photom/dusty10_SkyM.csv_SHORTLISTED.ascii'
+input_path = '/mnt/dwf/archive_NOAO_data/data_outputs/2018/06/Dusty10/g_band/single/c4d_180609_021647_ooi_g_v1//SE_cats/'
+input_cats = '/mnt/dwf/sky_mapperDR2/shortlisted_stars_for_photom/dusty10test.csv_SHORTLISTED.ascii'
 
 ###-----------------------------------^^^^^^^^^^^ DID YOU INPUT FIELD NAMEs ?  --------------------------------------------------------------
 
@@ -104,7 +104,7 @@ for i in path_list:
 			else:
 				pass 
 			
-			max_radius = 1./3600 #1 arc second 
+			max_radius = 5./3600 #1 arc second 
 			dist_between, ind_row = crossmatch_angular(DWF_X, SM_X, max_radius)
 			match = ~np.isinf(dist_between)
 			if len(match) != 0: 

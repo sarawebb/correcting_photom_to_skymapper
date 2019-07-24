@@ -42,7 +42,7 @@ input_cats = '/mnt/dwf/sky_mapperDR2/'
 cat_list = glob.glob(input_cats)
 
 for filename in os.listdir(input_cats):
-		if filename.endswith('.csv'):
+		if filename.endswith('test.csv'):
 
 			SM_cat  = pd.read_csv(input_cats + filename).to_dict(orient='row')
 			#print(SM_cat[0]['i_psf'])
