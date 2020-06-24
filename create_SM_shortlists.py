@@ -37,12 +37,12 @@ from astroML.datasets import fetch_imaging_sample, fetch_sdss_S82standards
 from astroML.plotting import hist
 
 
-input_cats = '/mnt/dwf/sky_mapperDR2/'
+input_cats = '/fred/oz100/NOAO_archive/archive_NOAO_data/scripts/correct_photom/skymapper/'
 
 cat_list = glob.glob(input_cats)
 
 for filename in os.listdir(input_cats):
-		if filename.endswith('test.csv'):
+		if filename.endswith('.csv'):
 
 			SM_cat  = pd.read_csv(input_cats + filename).to_dict(orient='row')
 			#print(SM_cat[0]['i_psf'])
@@ -171,6 +171,6 @@ for filename in os.listdir(input_cats):
 			
 			t = SM_filtered
 			print(t)
-			output = '/mnt/dwf/sky_mapperDR2/shortlisted_stars_for_photom/' + filename + '_SHORTLISTED.ascii'
+			output = '/fred/oz100/NOAO_archive/archive_NOAO_data/scripts/correct_photom/skymapper/shortlisted_stars_for_photom/' + filename + '_SHORTLISTED.ascii'
 			t.write(output, format='ascii', overwrite= True)
 			

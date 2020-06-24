@@ -1,0 +1,34 @@
+WARNING: AstropyDeprecationWarning: astropy.extern.six will be removed in 4.0, use the six module directly if it is still needed [astropy.extern.six]
+WARNING: AstropyDeprecationWarning: astropy.extern.six will be removed in 4.0, use the six module directly if it is still needed [astropy.extern.six]
+/home/swebb/.conda/envs/py3/lib/python3.6/site-packages/astroML/crossmatch.py:72: RuntimeWarning: invalid value encountered in multiply
+  X2 = X2 * (np.pi / 180.)
+WARNING: AstropyDeprecationWarning: astropy.extern.six will be removed in 4.0, use the six module directly if it is still needed [astropy.extern.six]
+/home/swebb/.conda/envs/py3/lib/python3.6/site-packages/astroML/crossmatch.py:72: RuntimeWarning: invalid value encountered in multiply
+  X2 = X2 * (np.pi / 180.)
+WARNING: AstropyDeprecationWarning: astropy.extern.six will be removed in 4.0, use the six module directly if it is still needed [astropy.extern.six]
+/home/swebb/.conda/envs/py3/lib/python3.6/site-packages/astroML/crossmatch.py:72: RuntimeWarning: invalid value encountered in multiply
+  X2 = X2 * (np.pi / 180.)
+WARNING: AstropyDeprecationWarning: astropy.extern.six will be removed in 4.0, use the six module directly if it is still needed [astropy.extern.six]
+/home/swebb/.conda/envs/py3/lib/python3.6/site-packages/astroML/crossmatch.py:72: RuntimeWarning: invalid value encountered in multiply
+  X2 = X2 * (np.pi / 180.)
+WARNING: AstropyDeprecationWarning: astropy.extern.six will be removed in 4.0, use the six module directly if it is still needed [astropy.extern.six]
+/home/swebb/.conda/envs/py3/lib/python3.6/site-packages/astroML/crossmatch.py:72: RuntimeWarning: invalid value encountered in multiply
+  X2 = X2 * (np.pi / 180.)
+WARNING: AstropyDeprecationWarning: astropy.extern.six will be removed in 4.0, use the six module directly if it is still needed [astropy.extern.six]
+/home/swebb/.conda/envs/py3/lib/python3.6/site-packages/astroML/crossmatch.py:72: RuntimeWarning: invalid value encountered in multiply
+  X2 = X2 * (np.pi / 180.)
+correct_AAVSO_ngc6744_2016_08.py:63: UserWarning: loadtxt: Empty input file: "/fred/oz100/NOAO_archive/archive_NOAO_data/data_outputs/2016/08/ngc6744/g_band/single/c4d_160803_060318_ooi_g_v1/SE_cats/c4d_160803_060318_ooi_g_v1._ext_40.fits_thresh_1.5_SE.cat"
+  MAG_APER, MAGERR_APER, MAG_AUTO, MAGERR_AUTO, XPEAK_IMAGE, YPEAK_IMAGE, X_IMAGE, Y_IMAGE, ALPHA_J2000, DELTA_J2000 = np.loadtxt(i + filename, unpack = True)
+Traceback (most recent call last):
+  File "correct_AAVSO_ngc6744_2016_08.py", line 63, in <module>
+    MAG_APER, MAGERR_APER, MAG_AUTO, MAGERR_AUTO, XPEAK_IMAGE, YPEAK_IMAGE, X_IMAGE, Y_IMAGE, ALPHA_J2000, DELTA_J2000 = np.loadtxt(i + filename, unpack = True)
+ValueError: not enough values to unpack (expected 10, got 0)
+WARNING: AstropyDeprecationWarning: astropy.extern.six will be removed in 4.0, use the six module directly if it is still needed [astropy.extern.six]
+/home/swebb/.conda/envs/py3/lib/python3.6/site-packages/astroML/crossmatch.py:72: RuntimeWarning: invalid value encountered in multiply
+  X2 = X2 * (np.pi / 180.)
+WARNING: AstropyDeprecationWarning: astropy.extern.six will be removed in 4.0, use the six module directly if it is still needed [astropy.extern.six]
+/home/swebb/.conda/envs/py3/lib/python3.6/site-packages/astroML/crossmatch.py:72: RuntimeWarning: invalid value encountered in multiply
+  X2 = X2 * (np.pi / 180.)
+WARNING: AstropyDeprecationWarning: astropy.extern.six will be removed in 4.0, use the six module directly if it is still needed [astropy.extern.six]
+/home/swebb/.conda/envs/py3/lib/python3.6/site-packages/astroML/crossmatch.py:72: RuntimeWarning: invalid value encountered in multiply
+  X2 = X2 * (np.pi / 180.)

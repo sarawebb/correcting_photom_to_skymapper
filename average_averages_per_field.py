@@ -34,8 +34,9 @@ import csv
 
 ###-----------------------------------   INPUT FIELD NAME ETC --------------------------------------------------------------###
 year = 2016
-input_path = '/mnt/dwf/archive_NOAO_data/data_outputs/'+str(year)+'/*/*/g_band/single/*/'
-
+field =  'ngc6101'
+input_path = '/fred/oz100/NOAO_archive/archive_NOAO_data/data_outputs/'+str(year)+'/*/'+field+'/g_band/single/*160728*/'
+exp_time = 20 
 path_list = glob.glob(input_path)
 
 bad_images = []
@@ -43,7 +44,7 @@ for i in path_list:
 	try: 
 		averages = []
 		os.chdir(i)
-		print(i)
+		#print(i)
 		av_path = str(i + 'photom_correction_files/')
 		#print(av_path)
 		test = os.chdir(av_path)
@@ -51,7 +52,7 @@ for i in path_list:
 		#print(os.listdir('.'))
 		for filename in os.listdir('.'):
 			if filename.startswith('average'):
-				print(filename)
+				#print(filename)
 				try: 
 					avs = np.loadtxt(filename, unpack = True, skiprows= 1)
 					#print(avs)
@@ -66,19 +67,21 @@ for i in path_list:
 				
 				except:
 					pass
-		if -0.5 <= mean <= 0.5:
-			print("YAAS")
+		a = True
+		if a==True:
+			#print("YAAS")
 			os.chdir("../final_source_cats/")
 			for cat in os.listdir('.'):
-				if cat.endswith('NOT_CORRECTED.ascii'):
+				if cat.endswith('.cat_NOT_CORRECTED.ascii'):
+					#print('--------------------------------------------------')
 					RA, DEC, g_mag_AUTO, g_mag_err_AUTO, g_mag_APER, g_mag_err_APER = np.loadtxt(cat, unpack=True, skiprows =1)
-			
+					zp_exp_correction = 2.5*np.log10(exp_time)
 					info_table = Table()
 					info_table['RA'] = RA
 					info_table['DEC'] = DEC
-					info_table['g_mag_AUTO'] = g_mag_AUTO - mean
+					info_table['g_mag_AUTO'] = (g_mag_AUTO) - mean
 					info_table['g_mag_err_AUTO'] = g_mag_err_AUTO
-					info_table['g_mag_APER'] = g_mag_APER - mean
+					info_table['g_mag_APER'] = (g_mag_APER ) - mean
 					info_table['g_mag_err_APER'] = g_mag_err_APER
 			
 					t = info_table 
@@ -86,18 +89,21 @@ for i in path_list:
 					cut_filename = filename[:len(filename)-19]
 					#print(cut_filename) 
 			
-					output = cut_filename + 'CORRECTED.ascii'
+					output = cut_filename + 'cat_CORRECTED.ascii'
+					print('-----NEWLY CORRECTED----------')
 					print(output)
 					t.write(output, format='ascii', overwrite=True)
-					
+						
 				
 				
 				
 				
-		else: 
-			#print("FUCK")
-			bad_images.append(i)
-			pass 
+				else: 
+					#print('------NOT CORRECTED--------')
+					#print(cat)
+					print('---------------------------')
+				
+					pass 
 	
 		#print(os.listdir('.'))
 	
@@ -106,7 +112,7 @@ for i in path_list:
 	
 bad = Table()
 bad['paths'] = bad_images
-outputs = '/mnt/dwf/archive_NOAO_data/scripts/correct_photom/' + str(year) +'bad_images_not_correctable.ascii'	
+outputs = '/fred/oz100/NOAO_archive/archive_NOAO_data/scripts/correct_photom/' + str(year) + str(field)+ 'bad_images_not_correctable.ascii'	
 bad.write(outputs, format='ascii', overwrite=True)		
 			
 			
